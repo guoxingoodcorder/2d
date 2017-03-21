@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <style>
+        .clock{
+            width: 200px;height: 200px;border:5px solid #aaa;background: radial-gradient(#fff,#ccc);
+            margin: auto;position: fixed;left: 0;top: 0;bottom: 0;right: 0;border-radius: 50%;
+        }
+    </style>
+
+</head>
+<body>
+      <div class="clock"></div>
+</body>
+<script>
+    window.onload=function () {
+        var a=document.querySelector(".clock");
+        make();
+        var t=setInterval(zhuan,1000);
+        var times=new Date();
+        var hour=times.getHours();
+        var min=times.getMinutes();
+        var sec=times.getSeconds();
+        var d=move(6,40,"#000",hour*30+min/2);
+        var b=move(4,60,"#000",min*6);
+        var c=move(2,80,"#000",sec*6);
+
+        function zhuan() {
+            var times=new Date();
+            var hour=times.getHours();
+            var min=times.getMinutes();
+            var sec=times.getSeconds();
+            d.style.transform="rotate("+(hour*30+min/2)+"deg)";
+            b.style.transform="rotate("+min*6+"deg)";
+            c.style.transform="rotate("+sec*6+"deg)";
+        }
+
+
+        function make() {
+            var widths,heights;
+            for(var i=0;i<60;i++){
+                if(i%5==0){
+                    widths=4;
+                    heights=10;
+                }else{
+                    widths=3;
+                    heights=6;
+                }
+                var div=document.createElement("div");
+                div.style.cssText="width:"+widths+"px;height:"+heights+"px;background:#000;" +
+                    "position:absolute;top:0;left:99px;";
+                div.style.transformOrigin="center 100px";
+                div.style.transform="rotate("+i*6+"deg)";
+                a.appendChild(div);
+            }
+        }
+        function move(w,h,c,jiao) {
+            var div=document.createElement("div");
+            div.style.cssText="width:"+w+"px;height:"+h+"px;background:"+c+";position:absolute;top:"+(100-h)+"px;left:"+(200-w)/2+"px;";
+            div.style.transformOrigin="center bottom";
+            div.style.transform="rotate("+jiao+"deg)";
+            a.appendChild(div);
+            return div;
+        }
+
+
+
+    }
+</script>
+</html>
